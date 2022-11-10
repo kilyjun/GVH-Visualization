@@ -1,1 +1,4 @@
-folium==3.10
+folium
+streamlit_folium
+streamlit
+pandas
