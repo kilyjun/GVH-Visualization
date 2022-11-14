@@ -2,3 +2,12 @@ folium
 streamlit_folium
 streamlit
 pandas
+st_folium
+datetime
+MarkerCluster
+MeasureControl
+Draw
+branca.element
+Template, MacroElement
+folium.plugins
+Fullscreen
