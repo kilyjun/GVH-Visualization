@@ -85,7 +85,7 @@ def display_map():
         <li><span style='background:green;opacity:0.7;'></span>Sustainability</li>
         <li><span style='background:red;opacity:0.7;'></span>Education</li>
         <li><span style='background:pink;opacity:0.7;'></span>Miscellaneous</li>
-        <li><span style='background:orange;opacity:0.7;'></span>No project yet</li>
+        <li><span style='background:orange;opacity:0.7;'></span>Uncategorized</li>
         
 
     </ul>
