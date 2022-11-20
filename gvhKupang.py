@@ -12,7 +12,7 @@ from folium.plugins import Fullscreen
 APP_TITLE = "GVH Indonesia"
 APP_SUB_TITLE = "Kupang"
 
-df = pd.read_csv('with info and category.csv')
+df = pd.read_csv('kupangGeolocation221120.csv')
 
 # setup dates
 previous_date = datetime.datetime.strptime("06-06-2022", '%m-%d-%Y')
@@ -85,7 +85,7 @@ def display_map():
         <li><span style='background:green;opacity:0.7;'></span>Sustainability</li>
         <li><span style='background:red;opacity:0.7;'></span>Education</li>
         <li><span style='background:pink;opacity:0.7;'></span>Miscellaneous</li>
-        <li><span style='background:orange;opacity:0.7;'></span>Uncategorized</li>
+        <li><span style='background:orange;opacity:0.7;'></span>No project yet</li>
         
 
     </ul>
