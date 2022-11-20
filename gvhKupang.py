@@ -1,18 +1,28 @@
 import streamlit as st
 import pandas as pd
-import folium
-from streamlit_folium import st_folium
 import datetime
+import folium
 from folium.plugins import MarkerCluster
 from folium.plugins import MeasureControl
 from folium.plugins import Draw
 from branca.element import Template, MacroElement
-from folium.plugins import Fullscreen
+from streamlit_folium import st_folium
 
-APP_TITLE = "GVH Indonesia"
-APP_SUB_TITLE = "Kupang"
+st.set_page_config(
+    page_title="GVH Indonesia Geolocation Database",
+    page_icon="🏔",
+    layout="wide",
+)
 
+# read csv as dataframe
 df = pd.read_csv('kupangGeolocation221120.csv')
+
+totalcount = df["Name of Location"].count()
+
+st.title("GVH Indonesia Dashboard")
+
+# creating a single-element container
+placeholder = st.empty()
 
 # setup dates
 previous_date = datetime.datetime.strptime("06-06-2022", '%m-%d-%Y')
@@ -21,8 +31,31 @@ today = datetime.datetime.today()
 # compute difference
 ndays = (today - previous_date).days
 
+with placeholder.container():
+
+    # create two columns
+    kpi1, kpi2 = st.columns(2)
+
+    # fill in those two columns with respective metrics or KPIs
+    kpi1.metric(
+        label="# of Locations",
+        value= totalcount,
+    )
+
+    kpi2.metric(
+        label = "# of Days Since First Exploration",
+        value = ndays,
+    )
+
+if st.checkbox("Filter by Project Category"):
+    # top-level filters
+    category_filter = st.selectbox("Select Project Category", pd.unique(df["General Type of Project"]))
+    # dataframe filter
+    df = df[df["General Type of Project"] == category_filter]
+
+# create a map
 def display_map():
-    map = folium.Map(width=2000, height=800, location=[-10.21, 123.66], zoom_start=10, scrollWheelZoom=True)
+    map = folium.Map(location=[-10.21, 123.66], zoom_start=10, scrollWheelZoom=True)
 
     # add measure control
     map.add_child(MeasureControl())
@@ -144,34 +177,41 @@ def display_map():
     folium.plugins.Fullscreen().add_to(map)
     
     # ADD MARKERS
-    for index, row in df.iterrows():
-        
-        iframe = folium.IFrame('<h4><b>' + str(row['Name of Location']) + '</h4></b>' + row['Date First Explored'] + '<br>' + str(row['Projects Done']))
+    if st.checkbox("Cluster Markers"):
+        for index, row in df.iterrows():
+            
+            iframe = folium.IFrame('<h4><b>' + str(row['Name of Location']) + '</h4></b>' + row['Date First Explored'] + '<br>' + str(row['Projects Done']))
 
-        if row['General Type of Project'] == 'Necessities':
-            folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='blue')).add_to(marker_cluster)
-        elif row['General Type of Project'] == 'Sustainability':
-            folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='green')).add_to(marker_cluster)
-        elif row['General Type of Project'] == 'Education':
-            folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='red')).add_to(marker_cluster)
-        elif row['General Type of Project'] == 'Miscellaneous':
-            folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='pink')).add_to(marker_cluster)
-        else:
-            folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='orange')).add_to(marker_cluster)
+            if row['General Type of Project'] == 'Necessities':
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='blue')).add_to(marker_cluster)
+            elif row['General Type of Project'] == 'Sustainability':
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='green')).add_to(marker_cluster)
+            elif row['General Type of Project'] == 'Education':
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='red')).add_to(marker_cluster)
+            elif row['General Type of Project'] == 'Miscellaneous':
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='pink')).add_to(marker_cluster)
+            else:
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='orange')).add_to(marker_cluster)
 
-    st_map = st_folium(map, width = 700, height= 450)
+    else:
+        for index, row in df.iterrows():
+            
+            iframe = folium.IFrame('<h4><b>' + str(row['Name of Location']) + '</h4></b>' + row['Date First Explored'] + '<br>' + str(row['Projects Done']))
+
+            if row['General Type of Project'] == 'Necessities':
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='blue')).add_to(map)
+            elif row['General Type of Project'] == 'Sustainability':
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='green')).add_to(map)
+            elif row['General Type of Project'] == 'Education':
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='red')).add_to(map)
+            elif row['General Type of Project'] == 'Miscellaneous':
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='pink')).add_to(map)
+            else:
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='orange')).add_to(map)            
+
+    st_map = st_folium(map, width = 1130, height= 500)
 
 def main():
-    st.set_page_config(APP_TITLE)
-    st.title(APP_TITLE)
-    st.caption(APP_SUB_TITLE)
-
-    field_name = 'Name of Location'
-    metric_title = f'# of Locations Explored'
-
-    total = df[field_name].count()
-    st.metric(metric_title, total)
-    st.metric("# of Days Since First Exploration", ndays)
 
     # DISPLAY FILTERS AND MAP
     display_map()
@@ -179,4 +219,9 @@ def main():
 if __name__ == "__main__":
     main()
 
- 
+# create checkbox
+if st.checkbox("Show Detailed Data View"):
+    # Detailed View
+    st.markdown("### Detailed Data View")
+    st.dataframe(df)
+
