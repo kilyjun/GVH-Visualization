@@ -31,11 +31,6 @@ today = datetime.datetime.today()
 # compute difference
 ndays = (today - previous_date).days
 
-st.metric(label = "# of Locations Explored", value = totalcount)
-st.metric(label = "Number of Days Since First Exploration", value = ndays, delta="1")
-
-st.metric(label="Temperature", value="70 °F", delta="1.2 °F")
-
 with placeholder.container():
 
     # create two columns
@@ -45,7 +40,7 @@ with placeholder.container():
     kpi1.metric(label="Number of Locations", value= totalcount,
     )
 
-    kpi2.metric(label = "# of Days Since First Exploration", value = ndays,
+    kpi2.metric(label = "Number of Days Since First Exploration", value = ndays,
     )
 
 if st.checkbox("Filter by Project Category"):
@@ -225,4 +220,3 @@ if st.checkbox("Show Detailed Data View"):
     # Detailed View
     st.markdown("### Detailed Data View")
     st.dataframe(df)
-
