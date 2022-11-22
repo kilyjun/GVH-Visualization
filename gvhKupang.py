@@ -10,6 +10,7 @@ today = datetime.datetime.today()
 
 # compute difference
 ndays = (today - previous_date).days
+totalcount = 10
 
 with placeholder.container():
 
