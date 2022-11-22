@@ -2,6 +2,3 @@ folium
 streamlit_folium
 streamlit
 pandas
-streamlit_metrics
-metric
-metric_row
