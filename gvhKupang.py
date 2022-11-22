@@ -34,6 +34,8 @@ ndays = (today - previous_date).days
 st.metric("# of Locations Explored", totalcount)
 st.metric("# of Days Since First Exploration", ndays)
 
+st.metric(label="Temperature", value="70 °F", delta="1.2 °F")
+
 # with placeholder.container():
 
 #     # create two columns
