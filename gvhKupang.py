@@ -22,7 +22,7 @@ totalcount = df["Name of Location"].count()
 st.title("GVH Indonesia Dashboard")
 
 # # creating a single-element container
-# placeholder = st.empty()
+placeholder = st.empty()
 
 # setup dates
 previous_date = datetime.datetime.strptime("06-06-2022", '%m-%d-%Y')
@@ -31,26 +31,20 @@ today = datetime.datetime.today()
 # compute difference
 ndays = (today - previous_date).days
 
-st.metric("# of Locations Explored", totalcount)
-st.metric("# of Days Since First Exploration", ndays)
+st.metric(label = "# of Locations Explored", value = totalcount)
+st.metric(label = "# of Days Since First Exploration", value = ndays)
 
-st.metric(label="Temperature", value="70 °F", delta="1.2 °F")
+with placeholder.container():
 
-# with placeholder.container():
+    # create two columns
+    kpi1, kpi2 = st.columns(2)
 
-#     # create two columns
-#     kpi1, kpi2 = st.columns(2)
+    # fill in those two columns with respective metrics or KPIs
+    kpi1.metric(label="# of Locations", value= totalcount,
+    )
 
-#     # fill in those two columns with respective metrics or KPIs
-#     kpi1.metric(
-#         label="# of Locations",
-#         value= totalcount,
-#     )
-
-#     kpi2.metric(
-#         label = "# of Days Since First Exploration",
-#         value = ndays,
-#     )
+    kpi2.metric(label = "# of Days Since First Exploration", value = ndays,
+    )
 
 if st.checkbox("Filter by Project Category"):
     # top-level filters
@@ -229,3 +223,4 @@ if st.checkbox("Show Detailed Data View"):
     # Detailed View
     st.markdown("### Detailed Data View")
     st.dataframe(df)
+
