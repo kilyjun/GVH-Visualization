@@ -42,7 +42,7 @@ with placeholder.container():
     kpi1, kpi2 = st.columns(2)
 
     # fill in those two columns with respective metrics or KPIs
-    kpi1.metric(label="# of Locations", value= totalcount,
+    kpi1.metric(label="Number of Locations", value= totalcount,
     )
 
     kpi2.metric(label = "# of Days Since First Exploration", value = ndays,
