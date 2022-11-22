@@ -1,5 +1,6 @@
 import streamlit as st
 import datetime
+from streamlit_metrics import metric
 
 # creating a single-element container
 placeholder = st.empty()
