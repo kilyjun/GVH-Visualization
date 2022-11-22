@@ -11,9 +11,7 @@ today = datetime.datetime.today()
 # compute difference
 ndays = (today - previous_date).days
 
-for seconds in range(200):
-
-    with placeholder.container():
+with placeholder.container():
 
         # create two columns
         kpi1, kpi2 = st.columns(2)
