@@ -1,25 +1,5 @@
 import streamlit as st
-import pandas as pd
 import datetime
-import folium
-from folium.plugins import MarkerCluster
-from folium.plugins import MeasureControl
-from folium.plugins import Draw
-from branca.element import Template, MacroElement
-from streamlit_folium import st_folium
-
-st.set_page_config(
-    page_title="GVH Indonesia Geolocation Database",
-    page_icon="🏔",
-    layout="wide",
-)
-
-# read csv as dataframe
-df = pd.read_csv('kupangGeolocation221120.csv')
-
-totalcount = df["Name of Location"].count()
-
-st.title("GVH Indonesia Dashboard")
 
 # creating a single-element container
 placeholder = st.empty()
