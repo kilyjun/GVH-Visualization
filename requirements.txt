@@ -4,3 +4,4 @@ streamlit
 pandas
 streamlit_metrics
 metric
+metric_row
