@@ -31,18 +31,20 @@ today = datetime.datetime.today()
 # compute difference
 ndays = (today - previous_date).days
 
-with placeholder.container():
+for seconds in range(200):
 
-    # create two columns
-    kpi1, kpi2 = st.columns(2)
+    with placeholder.container():
 
-    # fill in those two columns with respective metrics or KPIs
-    kpi1.metric(
-        label="# of Locations",
-        value= totalcount,
-    )
+        # create two columns
+        kpi1, kpi2 = st.columns(2)
 
-    kpi2.metric(
-        label = "# of Days Since First Exploration",
-        value = ndays,
-    )
+        # fill in those two columns with respective metrics or KPIs
+        kpi1.metric(
+            label="# of Locations",
+            value= totalcount,
+        )
+
+        kpi2.metric(
+            label = "# of Days Since First Exploration",
+            value = ndays,
+        )
