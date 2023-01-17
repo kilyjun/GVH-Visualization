@@ -115,7 +115,7 @@ def display_map():
         <li><span style='background:green;opacity:0.7;'></span>Sustainability</li>
         <li><span style='background:red;opacity:0.7;'></span>Education</li>
         <li><span style='background:pink;opacity:0.7;'></span>Miscellaneous</li>
-        <li><span style='background:lightblue;opacity:0.7;'></span>No project yet</li>
+        <li><span style='background:lightgreen;opacity:0.7;'></span>No project yet</li>
         
 
     </ul>
@@ -188,7 +188,7 @@ def display_map():
             elif row['General Type of Project'] == 'Miscellanous':
                 folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='pink')).add_to(marker_cluster)
             else:
-                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='lightblue')).add_to(marker_cluster)
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='lightgreen')).add_to(marker_cluster)
 
     else:
         for index, row in df.iterrows():
@@ -204,7 +204,7 @@ def display_map():
             elif row['General Type of Project'] == 'Miscellanous':
                 folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='pink')).add_to(map)
             else:
-                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='lightblue')).add_to(map)            
+                folium.Marker([row['Latitude'], row['Longitude']], popup=folium.Popup(iframe, min_width=250, max_width=250), tooltip=tooltip, icon=folium.Icon(color='lightgreen')).add_to(map)            
 
     st_map = st_folium(map, width = 1130, height= 500)
 
@@ -226,7 +226,7 @@ with fig_col1:
 with fig_col2:
     st.markdown("Percentage of Projects by Type")
     fig = px.pie(data_frame=df, names="General Type of Project", color="General Type of Project"
-                 , color_discrete_map={'Necessities':'orange', 'Sustainability':'green', 'Education':'red', 'Miscellanous':'pink', 'Other':'lightcyan'})
+                 , color_discrete_map={'Necessities':'orange', 'Sustainability':'green', 'Education':'red', 'Miscellanous':'pink', 'Other':'light cyan'})
     st.write(fig)  
 
 # create checkbox
