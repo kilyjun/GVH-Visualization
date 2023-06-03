@@ -185,6 +185,14 @@ def display_map():
 # display the map
 components.html(display_map(), width=1200, height=800)
 
+def main():
+
+    # DISPLAY FILTERS AND MAP
+    display_map()
+    
+if __name__ == "__main__":
+    main()
+
 # create 2 columns for 2 histogram and pie chart
 fig_col1, fig_col2 = st.columns(2)
 with fig_col1:
@@ -195,7 +203,7 @@ with fig_col1:
 with fig_col2:
     st.markdown("Percentage of Projects by Type")
     fig = px.pie(data_frame=df, names="General Type of Project", color="General Type of Project",
-                 color_discrete_map={'Necessities': 'orange', 'Sustainability': 'green', 'Education': 'blue', 'Miscellaneous': 'orange', 'Other': 'pink'})
+                 color_discrete_map={'Necessities': 'Red', 'Sustainability': 'green', 'Education': 'blue', 'Miscellaneous': 'orange', 'Other': 'pink'})
     st.write(fig) 
 
 # display the dataframe
