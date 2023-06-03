@@ -10,7 +10,7 @@ import plotly.express as px
 import streamlit.components.v1 as components
 
 st.set_page_config(
-    page_title="GVH Myanmar Dashboard",
+    page_title="GVH Project Dashboard",
     page_icon="🏔",
     layout="wide",
 )
@@ -23,7 +23,7 @@ df = df.dropna(subset=['Latitude', 'Longitude'])
 
 totalcount = df["Name of Events"].count()
 
-st.title("GVH Myanmar Dashboard")
+st.title("GVH Project Dashboard")
 
 # creating a single-element container
 placeholder = st.empty()
